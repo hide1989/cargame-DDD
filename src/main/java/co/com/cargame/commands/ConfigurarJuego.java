@@ -6,6 +6,17 @@ import java.util.List;
 
 public class ConfigurarJuego implements Command {
 
+    private List<Carro> carrosList;
+    private Integer catidadCarros;
+
+    public ConfigurarJuego(List<Carro> carrosList, int cantidadCarros){
+        this.carrosList = carrosList;
+        this.catidadCarros = cantidadCarros;
+    }
+
+    public ConfigurarJuego(){
+    }
+
     public List<Carro> getCarrosList() {
         return carrosList;
     }
@@ -22,16 +33,9 @@ public class ConfigurarJuego implements Command {
         this.catidadCarros = catidadCarros;
     }
 
-    private List<Carro> carrosList;
-    private Integer catidadCarros;
 
-    public ConfigurarJuego(List<Carro> carrosList, int cantidadCarros){
-        this.carrosList = carrosList;
-        this.catidadCarros = cantidadCarros;
-    }
 
-    public ConfigurarJuego(){
-    }
+
 
 
 }

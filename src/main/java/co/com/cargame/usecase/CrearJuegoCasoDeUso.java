@@ -13,6 +13,7 @@ public class CrearJuegoCasoDeUso extends UseCase<RequestCommand<ConfigurarJuego>
     public void executeUseCase(RequestCommand<ConfigurarJuego> configurarJuegoRequestCommand) {
         ConfigurarJuego comando = configurarJuegoRequestCommand.getCommand();
         Juego juego = new Juego(new JuegoID(), comando.getCatidadCarros());
+
         comando.getCarrosList().forEach((carro) ->{
             juego.agregarCarro(carro.identity(), carro.color(), carro.modelo(), carro.conductor());
         });

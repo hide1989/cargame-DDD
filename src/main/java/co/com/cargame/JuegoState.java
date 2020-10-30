@@ -1,6 +1,8 @@
 package co.com.cargame;
 
+import co.com.cargame.entity.Carril;
 import co.com.cargame.entity.Carro;
+import co.com.cargame.events.CarrilAgregado;
 import co.com.cargame.events.CarroAgregado;
 import co.com.cargame.events.JuegoCreado;
 import co.com.sofka.domain.generic.EventChange;
@@ -17,6 +19,10 @@ public class JuegoState extends EventChange {
             }else{
                 throw new IllegalArgumentException("la cantidad de carros es mayor a la permitida");
             }
+        });
+
+        apply((CarrilAgregado carrilAgregado) ->{
+            pista.listaCarriles.add(new Carril(carrilAgregado.getLongitudPista(), carrilAgregado.getCarro()));
         });
 
         apply((JuegoCreado event) ->{

@@ -26,6 +26,7 @@ public class Juego extends AggregateEvent<JuegoID> {
 
     private Juego(JuegoID entityId){
         super(entityId);
+
         subscribe(new JuegoState(this));
     }
 
@@ -38,4 +39,7 @@ public class Juego extends AggregateEvent<JuegoID> {
     public void agregarCarro(CarroId carroId, Color color, Modelo modelo, Conductor conductor){
         appendChange( new CarroAgregado(carroId, color, modelo, conductor)).apply();
     }
+
+
+
 }
