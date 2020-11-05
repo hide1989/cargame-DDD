@@ -6,14 +6,14 @@ import java.util.Objects;
 
 public class DistanciRecoorida implements ValueObject<Integer> {
 
-    private final int distaciaRecorrida;
+    private final Integer distaciaRecorrida;
 
-    public DistanciRecoorida(int distaciaRecorrida){
+    public DistanciRecoorida(Integer distaciaRecorrida){
         this.distaciaRecorrida = Objects.requireNonNull(distaciaRecorrida, "La distancia no puede ser null");
     }
 
     @Override
     public Integer value() {
-        return null;
+        return distaciaRecorrida;
     }
 }

@@ -6,7 +6,7 @@ import co.com.cargame.commands.IniciarCarrera;
 import co.com.cargame.entity.Carro;
 import co.com.cargame.entity.Conductor;
 import co.com.cargame.events.CarreraIniciada;
-import co.com.cargame.events.CarroDesplazado;
+import co.com.cargame.events.CarrosDesplazados;
 import co.com.cargame.events.JuegoCreado;
 import co.com.cargame.usecase.CrearJuegoCasoDeUso;
 import co.com.cargame.usecase.DesplazarCarrosCasoDeUso;
@@ -88,6 +88,7 @@ class CrearJuegoCasoDeUsoTest extends UseCaseHandleBaseTest {
     void MoverCarroCaseTest(){
         DesplazarCarrosCasoDeUso desplazarCarrosCasoDeUso = new DesplazarCarrosCasoDeUso();
         ArrayList<Carro> listaCarros = new ArrayList<>();
+
         listaCarros.add(new Carro(
                 new CarroId("ABC123"),
                 new Modelo("2000"),
@@ -104,7 +105,7 @@ class CrearJuegoCasoDeUsoTest extends UseCaseHandleBaseTest {
         when(repository.getEventsBy(anyString())).thenReturn(List.of(
                 new JuegoCreado(2),
                 new CarreraIniciada(true, new JuegoID("xxx"), listaCarros),
-                new CarroDesplazado(listaCarros, new JuegoID("xxx"))
+                new CarrosDesplazados(listaCarros, new JuegoID("xxx"))
         ));
 
         desplazarCarrosCasoDeUso.addRepository(repository);
@@ -115,6 +116,8 @@ class CrearJuegoCasoDeUsoTest extends UseCaseHandleBaseTest {
                 .subscribe(subscriber);
 
         verify(subscriber).onNext(eventCaptor.capture());
+        var events = eventCaptor.getValue();
+        Assertions.assertTrue(events instanceof CarrosDesplazados);
     }
 
 }

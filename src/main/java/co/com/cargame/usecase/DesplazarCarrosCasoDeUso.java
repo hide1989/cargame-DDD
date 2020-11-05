@@ -26,6 +26,8 @@ public class DesplazarCarrosCasoDeUso extends UseCase<TriggeredEvent<CarreraInic
         }else{
             logger.log(Level.INFO, "No se ha iniciado la Carrera");
         }
+
         emit().onSuccess(new ResponseEvents(juego.getUncommittedChanges()));
     }
+
 }

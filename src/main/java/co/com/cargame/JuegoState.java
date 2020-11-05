@@ -29,6 +29,7 @@ public class JuegoState extends EventChange {
         });
 
         apply((CarreraIniciada carreraIniciada) ->{
+            juego.listaCarros = carreraIniciada.getListaCarros();
             if(carreraIniciada.isCarreraIniciada()){
                 juego.isCarreraIniciada = carreraIniciada.isCarreraIniciada();
             }else{
@@ -36,12 +37,10 @@ public class JuegoState extends EventChange {
             }
         });
 
-        apply((CarroDesplazado carroDesplazado) ->{
-            carroDesplazado.getListaCarros().forEach(carro -> {
-                carro.avanzar();
-                juego.listaCarros.remove(0);
-                juego.listaCarros.add(carro);
-            });
+        apply((CarrosDesplazados carrosDesplazados) ->{
+            for (Carro listaCarro : juego.listaCarros) {
+                listaCarro.avanzar();
+            }
         });
     }
 
@@ -53,7 +52,7 @@ public class JuegoState extends EventChange {
 
         apply((RecorridoActualizado recorridoActualizado) ->{
             int cantidadCarros = recorridoActualizado.getListaCarros().size();
-            if(cantidadCarros == 0){
+            if(cantidadCarros <= 0){
                 throw new IllegalArgumentException("No hay carros agregados");
             }
             for(int i = 0; i<= cantidadCarros-1; i++){

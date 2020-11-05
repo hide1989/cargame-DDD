@@ -5,7 +5,7 @@ import co.com.cargame.entity.Carro;
 import co.com.cargame.entity.Conductor;
 import co.com.cargame.events.CarreraIniciada;
 import co.com.cargame.events.CarroAgregado;
-import co.com.cargame.events.CarroDesplazado;
+import co.com.cargame.events.CarrosDesplazados;
 import co.com.cargame.events.JuegoCreado;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
@@ -15,6 +15,7 @@ import java.util.List;
 
 public class Juego extends AggregateEvent<JuegoID> {
 
+    //TODO: CAMBIAR A SET LOS ARRAYLIST
     protected ArrayList<Carro> listaCarros;
     protected  Integer limiteCarros;
     protected  Boolean isCarreraIniciada;
@@ -43,8 +44,8 @@ public class Juego extends AggregateEvent<JuegoID> {
         appendChange(new CarreraIniciada(true, juegoID, listaCarros )).apply();
     }
 
-    public void moverCarros(ArrayList<Carro> listaCarros, JuegoID juegoID ){
-        appendChange(new CarroDesplazado(listaCarros, juegoID)).apply();
+    public void moverCarros(ArrayList<Carro> listaCarros, JuegoID juegoID){
+        appendChange(new CarrosDesplazados(listaCarros, juegoID)).apply();
     }
 
 }

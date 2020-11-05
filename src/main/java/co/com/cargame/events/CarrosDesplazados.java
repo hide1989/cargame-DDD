@@ -1,20 +1,23 @@
 package co.com.cargame.events;
 
-import co.com.cargame.VO.DistanciRecoorida;
+
 import co.com.cargame.VO.JuegoID;
+import co.com.cargame.VO.PistaId;
 import co.com.cargame.entity.Carro;
 import co.com.sofka.domain.generic.DomainEvent;
 import co.com.sofka.domain.generic.Incremental;
 
 import java.util.ArrayList;
 
-public class CarroDesplazado extends DomainEvent {
+public class CarrosDesplazados extends DomainEvent implements Incremental {
 
     private ArrayList<Carro> listaCarros;
     private JuegoID juegoID;
+    private  PistaId pistaId;
 
-    public CarroDesplazado( ArrayList<Carro> listaCarros, JuegoID juegoID){
-        super("com.cargame.carrodesplazado");
+    //TODO: CON UN CONSTRUCTOR VACIO BASTA
+    public CarrosDesplazados(ArrayList<Carro> listaCarros, JuegoID juegoID){
+        super("com.cargame.carrosdesplazados");
         this.listaCarros = listaCarros;
         this.juegoID = juegoID;
     }
@@ -26,5 +29,10 @@ public class CarroDesplazado extends DomainEvent {
     public JuegoID getJuegoID() {
         return juegoID;
     }
+
+    public PistaId getPistaId() {
+        return pistaId;
+    }
+
 
 }

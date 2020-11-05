@@ -12,7 +12,6 @@ public class CarreraIniciada extends DomainEvent {
 
     private Boolean isCarreraIniciada;
     private JuegoID juegoID;
-
     private ArrayList<Carro> listaCarros;
 
     public CarreraIniciada(Boolean isCarreraIniciada, JuegoID juegoID, ArrayList<Carro> listaCarros){
