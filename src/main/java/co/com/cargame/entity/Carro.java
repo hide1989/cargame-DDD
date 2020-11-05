@@ -21,7 +21,7 @@ public class Carro extends Entity<CarroId> {
         distanciRecoorida = new DistanciRecoorida(0);
     }
 
-    private void avanzar(){
+    public void avanzar(){
         int numeroAleatorio = conductor.lanzarDado();
         distanciRecoorida = new DistanciRecoorida(distanciRecoorida.value()+(numeroAleatorio*100));
     }

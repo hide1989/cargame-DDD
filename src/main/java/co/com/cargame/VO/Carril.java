@@ -1,13 +1,14 @@
-package co.com.cargame.entity;
+package co.com.cargame.VO;
+import co.com.cargame.entity.Carro;
 import co.com.sofka.domain.generic.ValueObject;
 
 public class Carril implements ValueObject<String> {
 
-    private final Integer longitudPista;
+    private final Integer longitudCarril;
     private final Carro carro;
 
-    public Carril(Integer longitudPista, Carro carro){
-        this.longitudPista = longitudPista;
+    public Carril(Integer longitudCarril, Carro carro){
+        this.longitudCarril = longitudCarril;
         this.carro = carro;
     }
 

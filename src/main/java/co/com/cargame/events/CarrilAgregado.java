@@ -1,6 +1,5 @@
 package co.com.cargame.events;
 
-import co.com.cargame.PistaId;
 import co.com.cargame.entity.Carro;
 import co.com.sofka.domain.generic.DomainEvent;
 

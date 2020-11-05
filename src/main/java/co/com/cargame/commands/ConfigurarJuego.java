@@ -8,10 +8,12 @@ public class ConfigurarJuego implements Command {
 
     private List<Carro> carrosList;
     private Integer catidadCarros;
+    private Integer longitudPista;
 
-    public ConfigurarJuego(List<Carro> carrosList, int cantidadCarros){
+    public ConfigurarJuego(List<Carro> carrosList, int cantidadCarros, int longitudPista){
         this.carrosList = carrosList;
         this.catidadCarros = cantidadCarros;
+        this.longitudPista = longitudPista;
     }
 
     public ConfigurarJuego(){
@@ -33,9 +35,13 @@ public class ConfigurarJuego implements Command {
         this.catidadCarros = catidadCarros;
     }
 
+    public Integer getLongitudPista() {
+        return longitudPista;
+    }
 
-
-
+    public void setLongitudPista(Integer longitudPista) {
+        this.longitudPista = longitudPista;
+    }
 
 
 }
