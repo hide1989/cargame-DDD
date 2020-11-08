@@ -1,8 +1,7 @@
 package co.com.cargame.usecase;
 
 import co.com.cargame.Juego;
-import co.com.cargame.Pista;
-import co.com.cargame.events.CarreraIniciada;
+import co.com.cargame.agregado.juego.events.CarreraIniciada;
 import co.com.sofka.business.annotation.EventListener;
 import co.com.sofka.business.generic.UseCase;
 import co.com.sofka.business.support.ResponseEvents;
@@ -22,7 +21,7 @@ public class DesplazarCarrosCasoDeUso extends UseCase<TriggeredEvent<CarreraInic
         Juego juego = Juego.from(event.getJuegoID(), retrieveEvents());
 
         if(event.isCarreraIniciada()){
-            juego.moverCarros(event.getListaCarros(),event.getJuegoID());
+            juego.moverCarros(event.getListaCarros(), event.getPistaId(), event.getLongitudPista(), event.getJuegoID());
         }else{
             logger.log(Level.INFO, "No se ha iniciado la Carrera");
         }

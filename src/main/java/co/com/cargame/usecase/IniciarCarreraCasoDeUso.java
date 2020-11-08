@@ -16,7 +16,7 @@ public class IniciarCarreraCasoDeUso extends UseCase<RequestCommand<IniciarCarre
     public void executeUseCase(RequestCommand<IniciarCarrera> iniciarCarreraRequestCommand){
         IniciarCarrera comando = iniciarCarreraRequestCommand.getCommand();
         Juego juego = Juego.from(comando.getJuegoID(), retrieveEvents());
-        juego.iniciarCarrera(comando.getJuegoID(), comando.getListaCarros());
+        juego.iniciarCarrera(comando.getJuegoID(), comando.getListaCarros(), comando.getPistaId(), comando.getLongitudPista());
         emit().onSuccess(new ResponseEvents((juego.getUncommittedChanges())));
     }
 

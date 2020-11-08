@@ -1,11 +1,15 @@
 package co.com.cargame;
 
-import co.com.cargame.VO.PistaId;
-import co.com.cargame.VO.Carril;
-import co.com.cargame.entity.Carro;
-import co.com.cargame.events.CarrilAgregado;
-import co.com.cargame.events.JuegoCreado;
-import co.com.cargame.events.RecorridoActualizado;
+import co.com.cargame.agregado.juego.vo.JuegoID;
+import co.com.cargame.agregado.pista.events.CarrilAgregado;
+import co.com.cargame.agregado.pista.events.GanadoresIdentificados;
+import co.com.cargame.agregado.pista.events.PodioCreado;
+import co.com.cargame.agregado.pista.events.RecorridoActualizado;
+import co.com.cargame.agregado.pista.vo.PistaId;
+import co.com.cargame.agregado.pista.vo.Carril;
+import co.com.cargame.agregado.pista.vo.Podium;
+import co.com.cargame.agregado.juego.events.JuegoCreado;
+import co.com.cargame.agregado.juego.Carro;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -15,10 +19,14 @@ import java.util.List;
 public class Pista extends AggregateEvent<PistaId> {
 
     protected ArrayList<Carril> listaCarriles = new ArrayList<>();
+    protected ArrayList<Carro> listaGanadores = new ArrayList<>();
+    protected Integer longitudPista;
+    protected Boolean carreraFinalizada;
+    protected Podium podium;
 
-    public Pista(PistaId entityId, int cantidadCarros) {
+    public Pista(PistaId entityId, Integer cantidadCarros, Integer longitudPista) {
         super(entityId);
-        appendChange(new JuegoCreado(cantidadCarros)).apply();
+        appendChange(new JuegoCreado(cantidadCarros, longitudPista)).apply();
     }
 
     public Pista(PistaId pistaId){
@@ -36,12 +44,25 @@ public class Pista extends AggregateEvent<PistaId> {
         appendChange(new CarrilAgregado(longitudCarril, carro)).apply();
     }
 
-    public void actualizarRecorrido(ArrayList<Carro> listaCarros, Integer longitudCarril, PistaId pistaId){
-        appendChange(new RecorridoActualizado(listaCarros, longitudCarril, pistaId));
+    public void actualizarRecorrido(ArrayList<Carro> listaCarros, PistaId pistaId){
+        appendChange(new RecorridoActualizado(listaCarros, pistaId)).apply();
     }
 
-    public void asignarPodioPorDistancia(ArrayList<Carril> listaCarriles){
+    public void identificarGanadores(PistaId pistaId, Integer longitudPista){
+        appendChange(new GanadoresIdentificados(pistaId, longitudPista)).apply();
+    }
 
+    public void asignarPodioPorDistancia(PistaId pistaId,ArrayList<Carro> listaGanadores, JuegoID juegoID){
+        appendChange(new PodioCreado(pistaId, listaGanadores, juegoID)).apply();
+    }
+
+
+    public ArrayList<Carro> devolverListaGanadores(){
+        return listaGanadores;
+    }
+
+    public Podium devolverPodium(){
+        return podium;
     }
 
 }

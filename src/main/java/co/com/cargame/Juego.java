@@ -1,12 +1,11 @@
 package co.com.cargame;
 
-import co.com.cargame.VO.*;
-import co.com.cargame.entity.Carro;
-import co.com.cargame.entity.Conductor;
-import co.com.cargame.events.CarreraIniciada;
-import co.com.cargame.events.CarroAgregado;
-import co.com.cargame.events.CarrosDesplazados;
-import co.com.cargame.events.JuegoCreado;
+import co.com.cargame.agregado.juego.events.*;
+import co.com.cargame.agregado.juego.vo.*;
+import co.com.cargame.agregado.juego.Carro;
+import co.com.cargame.agregado.juego.Conductor;
+import co.com.cargame.agregado.pista.vo.PistaId;
+import co.com.cargame.agregado.pista.vo.Podium;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 
@@ -15,23 +14,18 @@ import java.util.List;
 
 public class Juego extends AggregateEvent<JuegoID> {
 
-    //TODO: CAMBIAR A SET LOS ARRAYLIST
     protected ArrayList<Carro> listaCarros;
     protected  Integer limiteCarros;
     protected  Boolean isCarreraIniciada;
 
-    public Juego(JuegoID entityId, int cantidadCarros) {
+    public Juego(JuegoID entityId, Integer cantidadCarros, Integer longitudPista) {
         super(entityId);
-        appendChange(new JuegoCreado(cantidadCarros)).apply();
+        appendChange(new JuegoCreado(cantidadCarros, longitudPista)).apply();
     }
 
     private Juego(JuegoID entityId){
         super(entityId);
         subscribe(new JuegoState(this));
-    }
-
-    public void agregarCarro(CarroId carroId, Color color, Modelo modelo, Conductor conductor){
-        appendChange( new CarroAgregado(carroId, color, modelo, conductor)).apply();
     }
 
     public static Juego from(JuegoID juegoID, List<DomainEvent> events){
@@ -40,12 +34,20 @@ public class Juego extends AggregateEvent<JuegoID> {
         return  juego;
     }
 
-    public void iniciarCarrera(JuegoID juegoID, ArrayList<Carro> listaCarros){
-        appendChange(new CarreraIniciada(true, juegoID, listaCarros )).apply();
+    public void agregarCarro(CarroId carroId, Color color, Modelo modelo, Conductor conductor, DistanciRecoorida distanciRecoorida){
+        appendChange( new CarroAgregado(carroId, color, modelo, conductor, distanciRecoorida)).apply();
     }
 
-    public void moverCarros(ArrayList<Carro> listaCarros, JuegoID juegoID){
-        appendChange(new CarrosDesplazados(listaCarros, juegoID)).apply();
+    public void iniciarCarrera(JuegoID juegoID, ArrayList<Carro> listaCarros, PistaId pistaId, Integer longitudPista){
+        appendChange(new CarreraIniciada(true, juegoID, listaCarros, pistaId, longitudPista)).apply();
+    }
+
+    public void moverCarros(ArrayList<Carro> listaCarros, PistaId pistaId, Integer longitudPista, JuegoID juegoID){
+        appendChange(new CarrosDesplazados(listaCarros, pistaId, longitudPista, juegoID)).apply();
+    }
+
+    public void verPodio(Podium podio, JuegoID juegoID){
+        appendChange(new PodioVisto(podio, juegoID)).apply();
     }
 
 }

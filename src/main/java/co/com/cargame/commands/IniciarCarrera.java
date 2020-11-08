@@ -1,22 +1,25 @@
 package co.com.cargame.commands;
 
-import co.com.cargame.VO.Carril;
-import co.com.cargame.VO.JuegoID;
-import co.com.cargame.VO.PistaId;
-import co.com.cargame.entity.Carro;
+import co.com.cargame.agregado.juego.vo.JuegoID;
+import co.com.cargame.agregado.pista.vo.PistaId;
+import co.com.cargame.agregado.juego.Carro;
 import co.com.sofka.domain.generic.Command;
 import java.util.ArrayList;
 
 
 public class IniciarCarrera implements Command {
 
-   private JuegoID juegoID;
-
+    private JuegoID juegoID;
     private ArrayList<Carro> listaCarros;
+    private PistaId pistaId;
 
-    public IniciarCarrera(JuegoID juegoID, ArrayList<Carro> listaCarros){
+    private Integer longitudPista;
+
+    public IniciarCarrera(JuegoID juegoID, ArrayList<Carro> listaCarros, PistaId pistaId, Integer longitudPista){
         this.juegoID = juegoID;
         this.listaCarros = listaCarros;
+        this.pistaId = pistaId;
+        this.longitudPista = longitudPista;
     }
 
     public IniciarCarrera(){}
@@ -31,6 +34,14 @@ public class IniciarCarrera implements Command {
 
     public ArrayList<Carro> getListaCarros() {
         return listaCarros;
+    }
+
+    public PistaId getPistaId() {
+        return pistaId;
+    }
+
+    public Integer getLongitudPista() {
+        return longitudPista;
     }
 
 }

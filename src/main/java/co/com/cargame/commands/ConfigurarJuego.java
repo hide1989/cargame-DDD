@@ -1,5 +1,5 @@
 package co.com.cargame.commands;
-import co.com.cargame.entity.Carro;
+import co.com.cargame.agregado.juego.Carro;
 import co.com.sofka.domain.generic.Command;
 
 import java.util.List;
